@@ -4,5 +4,28 @@
 	left: 0;
 	width: 200px;
 	min-height: 100px;
-	background: #ffffff;
+	background: #bfc1c2;
+	font-size:10px !important;
+}
+
+#aq_videos{
+	border-color: gray;
+    border-style: solid;
+}
+
+#aq_books{
+	border-color: gray;
+    border-style: solid;
+}
+
+.video-container{
+	padding: 10px;
+}
+
+.book-container{
+	padding: 10px;
+}
+
+#aq_videos ul li{
+	list-style-type: none;
 }
