@@ -39,3 +39,7 @@
     background: #ffffA5;
     z-index: 1000;
 }
+
+.aq-rec-main ul{
+	list-style: none;
+}
