@@ -1,0 +1,8 @@
+.aq-rec-main{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 200px;
+	min-height: 100px;
+	background: #ffffff;
+}
