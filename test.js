@@ -37,9 +37,25 @@ function getArticleText(html, next){
     xhr.send();
 }
 
+function checkAnswer(){
+    alert("here");
+    var list = document.getElementById("aq_radios"); //Client ID of the radiolist
+    var inputs = list.getElementsByTagName("input");
+    var selected;
+    for (var i = 0; i < inputs.length; i++) {
+         if (inputs[i].checked) {
+             selected = inputs[i];
+             break;
+          }
+     }
+     if (selected) {
+          alert(selected.value);
+     }
+}
+
 function getBooks(next) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://autoq.herokuapp.com/getEBooks?keyword=engineering", true);
+    xhr.open("GET", "http://autoq.herokuapp.com/getEBooks?keyword=Alexander+the+Great", true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         // WARNING! Might be injecting a malicious script!
@@ -52,7 +68,7 @@ function getBooks(next) {
 
 function getVideos(next) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://autoq.herokuapp.com/getVideos?keyword=engineering", true);
+    xhr.open("GET", "http://autoq.herokuapp.com/getVideos?keyword=Alexander+the+Great", true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         // WARNING! Might be injecting a malicious script!
@@ -76,12 +92,12 @@ function getQuestion(next) {
     xhr.send();
 }
 
-//var s = document.createElement('script');
-//s.src = chrome.extension.getURL('script.js');
-//s.onload = function() {
-// this.parentNode.removeChild(this);
-//};
-//(document.head||document.documentElement).appendChild(s);
+var s = document.createElement('script');
+s.src = chrome.extension.getURL('script.js');
+s.onload = function() {
+ this.parentNode.removeChild(this);
+};
+(document.head||document.documentElement).appendChild(s);
 //
 //var css = document.createElement('style');
 //css.src = chrome.extension.getURL('aq_style.css');
