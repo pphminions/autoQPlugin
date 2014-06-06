@@ -29,3 +29,13 @@
 #aq_videos ul li{
 	list-style-type: none;
 }
+
+.aq-question{
+	position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    min-height: 100px;
+    background: #ffffA5;
+    z-index: 1000;
+}

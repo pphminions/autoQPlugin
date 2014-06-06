@@ -1,14 +1,45 @@
-alert("check:"+document.body.innerHTML);
-
 function getRecommendations(){
+//    getArticle(function(content){
+//        getArticleText(content, function(contentText){
+//            alert(contentText);
+//        });
+//    });
     getBooks(function(){
         getVideos();
     });
+    
+    getQuestion();
+}
+
+function getArticle(next){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://autoq.herokuapp.com/extractArticle?url="+document.URL, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        // WARNING! Might be injecting a malicious script!
+          var json = JSON.parse(xhr.responseText);
+        next && next(json.content);
+      }
+    }
+    xhr.send();
+}
+
+function getArticleText(html, next){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://autoq.herokuapp.com/extractArticleText?html="+html, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        // WARNING! Might be injecting a malicious script!
+          var json =  JSON.parse(xhr.responseText);
+        next && next(xhr.responseText);
+      }
+    }
+    xhr.send();
 }
 
 function getBooks(next) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://autoq.herokuapp.com/getEBooks?keyword=sri+lanka", true);
+    xhr.open("GET", "http://autoq.herokuapp.com/getEBooks?keyword=engineering", true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         // WARNING! Might be injecting a malicious script!
@@ -21,11 +52,24 @@ function getBooks(next) {
 
 function getVideos(next) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://autoq.herokuapp.com/getVideos?keyword=sri+lanka", true);
+    xhr.open("GET", "http://autoq.herokuapp.com/getVideos?keyword=engineering", true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         // WARNING! Might be injecting a malicious script!
         document.getElementById("aq_videos").innerHTML = xhr.responseText;
+        next && next();
+      }
+    }
+    xhr.send();
+}
+
+function getQuestion(next) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://autoq.herokuapp.com/getQuestion", true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        // WARNING! Might be injecting a malicious script!
+        document.getElementById("aq_question").innerHTML = xhr.responseText;
         next && next();
       }
     }
@@ -65,7 +109,10 @@ i.innerHTML = "<div id='aq_books'></div><div id='aq_videos'></div>";
 i.className = "aq-rec-main";
 document.body.appendChild(i);
 
-
+var ques=document.createElement('div');
+ques.innerHTML = "<div id='aq_question'></div>";
+ques.className = "aq-question";
+document.body.appendChild(ques);
 
 
 getRecommendations();
