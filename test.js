@@ -16,8 +16,8 @@ function getRecommendations(){
 //    getQuestion();
 }
 
-var appurl = "http://localhost:5000";
-//var appurl = "http://autoq.herokuapp.com";
+//var appurl = "http://localhost:5000";
+var appurl = "http://autoq.herokuapp.com";
 
 function getArticle(next){
     var xhr = new XMLHttpRequest();
