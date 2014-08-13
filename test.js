@@ -1,24 +1,33 @@
 function getRecommendations(){
-//    getArticle(function(content){
+    getArticle(function(content, keyword){
+        //alert(content);
+        document.getElementById("aq_question").innerHTML = content;
+        
+        getBooks(keyword);
+        getVideos(keyword);
 //        getArticleText(content, function(contentText){
 //            alert(contentText);
 //        });
-//    });
-    getBooks(function(){
-        getVideos();
     });
+//    getBooks(function(){
+//        getVideos();
+//    });
     
-    getQuestion();
+//    getQuestion();
 }
+
+var appurl = "http://localhost:5000";
+//var appurl = "http://autoq.herokuapp.com";
 
 function getArticle(next){
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://autoq.herokuapp.com/extractArticle?url="+document.URL, true);
+    xhr.open("GET", appurl + "/extractArticle?url=" + document.URL, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         // WARNING! Might be injecting a malicious script!
+          //alert(xhr.responseText);
           var json = JSON.parse(xhr.responseText);
-        next && next(json.content);
+        next && next(json.content, json.keyword);
       }
     }
     xhr.send();
@@ -26,7 +35,7 @@ function getArticle(next){
 
 function getArticleText(html, next){
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://autoq.herokuapp.com/extractArticleText?html="+html, true);
+    xhr.open("GET", appurl + "/extractArticleText?html="+html, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         // WARNING! Might be injecting a malicious script!
@@ -53,9 +62,9 @@ function checkAnswer(){
      }
 }
 
-function getBooks(next) {
+function getBooks(keyword, next) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://autoq.herokuapp.com/getEBooks?keyword=Alexander+the+Great", true);
+    xhr.open("GET", appurl + "/getEBooks?keyword="+keyword, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         // WARNING! Might be injecting a malicious script!
@@ -66,9 +75,9 @@ function getBooks(next) {
     xhr.send();
 }
 
-function getVideos(next) {
+function getVideos(keyword, next) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://autoq.herokuapp.com/getVideos?keyword=Alexander+the+Great", true);
+    xhr.open("GET", appurl + "/getVideos?keyword="+keyword, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         // WARNING! Might be injecting a malicious script!
@@ -81,7 +90,7 @@ function getVideos(next) {
 
 function getQuestion(next) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://autoq.herokuapp.com/getQuestion", true);
+    xhr.open("GET", appurl + "/getQuestion", true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         // WARNING! Might be injecting a malicious script!

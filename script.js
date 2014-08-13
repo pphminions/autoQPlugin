@@ -1,8 +1,8 @@
 function checkAnswer(){
-    alert("here");
+    //alert("here");
     var list = document.getElementById("aq_radios"); //Client ID of the radiolist
     
-    alert(list.length);
+    //alert(list.length);
     var inputs = list.getElementsByTagName("input");
     var selected;
     for (var i = 0; i < inputs.length; i++) {
